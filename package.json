@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend/issues"
   },
-  "homepage": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend#readme"
+  "homepage": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend#readme",
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  },
+  "scripts": {
+    "build": "webpack --config config/webpack.config.js"
+  }
 }
