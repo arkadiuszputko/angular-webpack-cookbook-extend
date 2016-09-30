@@ -88,3 +88,8 @@ index.html
 </html>
 
 ```
+
+Run build
+```sh
+npm run build
+```
