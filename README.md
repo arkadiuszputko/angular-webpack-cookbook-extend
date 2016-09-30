@@ -1,95 +1,30 @@
 angular-webpack-coockbook-extend
 ============
 
-## Step 1
+## Step 2
 
-Initiate project
+Add webpack dev server
 
 ```sh
-npm init
+npm i webpack-dev-server --save-dev
 ```
 
-Install webpack
-```sh
-npm i --save-dave webpack
-```
-
-Add the directory structure
-
-    .
-    ├── config
-    │   └── webpack.config.js
-    ├── dist
-    │   ├── bundle.js
-    │   └── index.html
-    ├── node_modules
-    ├── src
-    │   ├── component.js
-    │   └── index.js
-    └── package.json
-
-Add build script to package.json
+Add start script to webpack conf
 
 ```json
-"scripts": {
-    "build": "webpack --config config/webpack.config.js"
+{
+  "scripts": {
+    "build": "webpack --config config/webpack.config.js",
+    "start": "webpack-dev-server --devtool eval --config config/webpack.config.js --progress --colors --hot --content-base dist"
+  }
 }
 ```
 
-webpack.config.js
+Meaning of the start commands:
 
-```js
-var path = require('path');
-
-module.exports = {
-    entry: path.resolve(__dirname, '../src/index.js'),
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: 'bundle.js'
-    },
-};
-```
-
-index.js
-
-```js
-'use strict';
-var component = require('./component.js');
-
-document.body.appendChild(component());
-```
-
-component.js
-
-```js
-'use strict';
-
-module.exports = function () {
-    var element = document.createElement('h1');
-
-    element.innerHTML = 'Hello world';
-
-    return element;
-};
-
-```
-
-index.html
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8"/>
-</head>
-<body>
-<script src="bundle.js"></script>
-</body>
-</html>
-
-```
-
-Run build
-```sh
-npm run build
-```
+1. webpack-dev-server - Starts a web service on localhost:8080
+2. --devtool eval - Creates source urls for your code. Making you able to pinpoint by filename and line number where any errors are thrown
+3. --config config/webpack.config.js - this points webpack to the relative config file
+4. --progress - Will show progress of bundling your application
+5. --colors - Yay, colors in the terminal!
+6. --content-base dist - Points to the output directory configured

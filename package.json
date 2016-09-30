@@ -4,7 +4,8 @@
   "description": "guide to make a webpack angular setup",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config config/webpack.config.js",
+    "start": "webpack-dev-server --devtool eval --config config/webpack.config.js --progress --colors --hot --content-base dist"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,7 @@
   },
   "homepage": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend#readme",
   "devDependencies": {
-    "webpack": "^1.13.2"
-  },
-  "scripts": {
-    "build": "webpack --config config/webpack.config.js"
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1"
   }
 }
