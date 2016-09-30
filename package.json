@@ -1,0 +1,25 @@
+{
+  "name": "angular-webpack-coockbook-extend",
+  "version": "1.0.0",
+  "description": "guide to make a webpack angular setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/arkadiuszputko/angular-webpack-cookbook-extend.git"
+  },
+  "keywords": [
+    "angular",
+    "webpack",
+    "karma",
+    "protractor"
+  ],
+  "author": "Arkadiusz Putko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend/issues"
+  },
+  "homepage": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend#readme"
+}
