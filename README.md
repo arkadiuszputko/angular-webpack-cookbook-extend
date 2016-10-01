@@ -1,89 +1,40 @@
 angular-webpack-coockbook-extend
 ============
 
-## Step 5
+## Step 6
 
-# Angular
+# Angular not proccessed every time
 
-Install angular
-
-```sh
-npm install angular --save
-```
-
-Change index.js to be angular module base
+Webpack config changes
 
 ```js
 
-import component from './component.js';
+var path = require('path');
+var nodeModules = path.resolve(__dirname, '../node_modules');
+var pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
 
-angular
-  .module('main', [])
-  .component('mainComponent', component);
-
-```
-
-Add angular this is tricky couse angular not exports in commonJs way just like that so we need to create wrapper
-
-angular-wrapper.js
-
-```js
-
-(function ()
-{
-    if (!this.__angular_wrapper_loaded__)
-    {
-        this.__angular_wrapper_loaded__ = true;
-        require("angular");
+var config = {
+  entry: path.resolve(__dirname, '../app/main.js'),
+  resolve: {
+    alias: {
+      'angular': pathToAngular
     }
-
-    module.exports = angular;
-})();
-```
-
-And import it in index.js, and start our angular app
-
-```js
-'use strict';
-
-var angular = require('./angular-wrapper');
-var component = require('./component');
-
-var app = {
-    template: '<component></component>'
+  },
+  output: {
+    path: path.resolve(__dirname, '../build'),
+    filename: 'bundle.js'
+  },
+  module: {
+    noParse: [pathToAngular]
+  }
 };
 
-angular.module('app', [])
-    .component('app', app)
-    .component('component', component);
-```
-
-Some changes to component
-```js
-'use strict';
-var component = {
-    template: '<h1>{{$ctrl.welcome}}</h1>',
-    controller: function () {
-        this.welcome = "Hello world"
-    }
-}
-
-module.exports = component;
+module.exports = config;
 
 ```
 
-Finally add base <app> to index
+We do two things in this configuration:
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8"/>
-</head>
-<body ng-app="app">
-<script src="http://localhost:8080/webpack-dev-server.js"></script>
-<script src="bundle.js"></script>
-    <app></app>
-</body>
-</html>
-```
+1. Whenever "angular" is required in the code it will fetch the minified Angular JS file instead of going to node_modules
+
+2. Whenever Webpack tries to parse the minified file, we stop it, as it is not necessary
