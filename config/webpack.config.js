@@ -3,7 +3,7 @@ var nodeModules = path.resolve(__dirname, '../node_modules');
 var pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
 
 var config = {
-    entry: path.resolve(__dirname, '../src/index.js'),
+    entry: ['webpack/hot/dev-server', path.resolve(__dirname, '../src/index.js')],
     resolve: {
         alias: {
             'angular': pathToAngular
