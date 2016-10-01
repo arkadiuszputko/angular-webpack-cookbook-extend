@@ -1,16 +1,14 @@
 angular-webpack-coockbook-extend
 ============
 
-## Step 9
+## Step 10
 
-# Less, sass, images, fonts
+# ES6 babel
 
 install wanted plugins
 
 ```sh
-npm install less-loader --save-dev
-npm install sass-loader node-sass webpack --save-dev
-npm install url-loader --save-dev
+npm install babel-loader babel-core babel-preset-es2015 --save-dev
 
 ```
 
@@ -19,24 +17,10 @@ Webpack config changes - adding loaders for sass or less
 
 ...
     module: {
-        loaders: [
-            // LESS
-            {
-                test: /\.less$/,
-                loader: 'style!css!less'
-            },
-
-            // SASS
-            {
-                test: /\.scss$/,
-                loader: 'style!css!sass'
-            },
-            // PNG, JPG
-            {
-                test: /\.(png|jpg)$/,
-                loader: 'url?limit=25000'
-            }
-        ]
+        loaders: [{
+            test: /\.js$/,
+            loader: 'babel'
+        }]
       }
 ...
 

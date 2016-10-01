@@ -29,6 +29,14 @@ var config = {
             {
                 test: /\.scss$/,
                 loader: 'style!css!sass'
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                query: {
+                    presets: ['es2015']
+                },
+                exclude: /node_modules/
             }
         ]
     },

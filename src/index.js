@@ -1,11 +1,11 @@
 'use strict';
 
-require("./index.css");
+import './index.css';
+import 'angular';
 
-var angular = require('./angular-wrapper');
-var component = require('./component');
+import component from './component';
 
-var app = {
+const app = {
     template: '<component></component>'
 };
 
