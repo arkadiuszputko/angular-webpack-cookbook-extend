@@ -1,40 +1,63 @@
 angular-webpack-coockbook-extend
 ============
 
-## Step 6
+## Step 7
 
-# Angular not proccessed every time
+# Html loader
+
+```sh
+npm install html-loader --save-dev
+```
 
 Webpack config changes
 
 ```js
 
-var path = require('path');
-var nodeModules = path.resolve(__dirname, '../node_modules');
-var pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
-
-var config = {
-  entry: path.resolve(__dirname, '../app/main.js'),
-  resolve: {
-    alias: {
-      'angular': pathToAngular
+...
+    module: {
+        noParse: [pathToAngular],
+        loaders: [
+            {
+                test: /\.html$/, // Only .html files
+                loader: 'html' // Run html loader
+            }
+        ]
     }
-  },
-  output: {
-    path: path.resolve(__dirname, '../build'),
-    filename: 'bundle.js'
-  },
-  module: {
-    noParse: [pathToAngular]
-  }
-};
-
-module.exports = config;
+...
 
 ```
 
-We do two things in this configuration:
+Now we can require('*.html') in template e.g. component.js
 
-1. Whenever "angular" is required in the code it will fetch the minified Angular JS file instead of going to node_modules
+```js
+'use strict';
+var component = {
+    template: require('./component.html'),
+    controller: function () {
+        this.welcome = "Hello world"
+    }
+}
 
-2. Whenever Webpack tries to parse the minified file, we stop it, as it is not necessary
+module.exports = component;
+
+```
+Add html-webpack-plugin to make it possible to move index.html into source
+
+```sh
+npm install html-webpack-plugin --save-dev
+```
+
+Move index.html to source ith html-plugin
+
+```js
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+...
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../src/index.html'),
+            inject: true
+        })
+    ]
+```
+
+

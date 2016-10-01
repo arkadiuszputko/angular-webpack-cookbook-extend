@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/arkadiuszputko/angular-webpack-cookbook-extend#readme",
   "devDependencies": {
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.22.0",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
   },

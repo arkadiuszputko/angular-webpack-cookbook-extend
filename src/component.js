@@ -1,6 +1,6 @@
 'use strict';
 var component = {
-    template: '<h1>{{$ctrl.welcome}}</h1>',
+    template: require('./component.html'),
     controller: function () {
         this.welcome = "Hello world"
     }
