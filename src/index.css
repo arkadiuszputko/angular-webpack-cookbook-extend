@@ -1,3 +1,5 @@
 body {
     background: #f00;
 }
+
+@import "component.scss";

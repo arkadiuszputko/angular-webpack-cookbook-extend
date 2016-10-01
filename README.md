@@ -1,29 +1,43 @@
 angular-webpack-coockbook-extend
 ============
 
-## Step 8
+## Step 9
 
-# Css
+# Less, sass, images, fonts
 
-Add css loader
+install wanted plugins
 
 ```sh
-npm install css-loader style-loader --save-dev
+npm install less-loader --save-dev
+npm install sass-loader node-sass webpack --save-dev
+npm install url-loader --save-dev
+
 ```
 
-Webpack config changes - adding loader
-
+Webpack config changes - adding loaders for sass or less
 ```js
 
 ...
     module: {
         loaders: [
-              {
-                test: /\.css$/, // Only .css files
-                loader: 'style!css' // Run both loaders
-              }
+            // LESS
+            {
+                test: /\.less$/,
+                loader: 'style!css!less'
+            },
+
+            // SASS
+            {
+                test: /\.scss$/,
+                loader: 'style!css!sass'
+            },
+            // PNG, JPG
+            {
+                test: /\.(png|jpg)$/,
+                loader: 'url?limit=25000'
+            }
         ]
-    }
+      }
 ...
 
 ```
