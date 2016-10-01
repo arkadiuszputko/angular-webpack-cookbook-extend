@@ -1,11 +1,18 @@
-var path = require('path');
-var nodeModules = path.resolve(__dirname, '../node_modules');
-var pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
+const path = require('path');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeModules = path.resolve(__dirname, '../node_modules');
+const pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
 
-var config = {
-    entry: ['webpack/hot/dev-server', path.resolve(__dirname, '../src/index.js')],
+var webpack = require('webpack');
+
+const pkg = require('../package.json');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const config = {
+    entry: {
+        app: path.resolve(__dirname, '../src/index.js'),
+        vendor: ['angular']
+    },
     resolve: {
         alias: {
             'angular': pathToAngular
@@ -17,6 +24,13 @@ var config = {
     },
     module: {
         noParse: [pathToAngular],
+        preLoaders: [
+            {
+                test: /\.js$/,
+                loader: "eslint-loader",
+                exclude: /node_modules/
+            }
+        ],
         loaders: [
             {
                 test: /\.html$/, // Only .html files
@@ -41,6 +55,7 @@ var config = {
         ]
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: 0}),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
             inject: true
