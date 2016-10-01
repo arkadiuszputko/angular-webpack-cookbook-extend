@@ -3,16 +3,13 @@ const path = require('path');
 const nodeModules = path.resolve(__dirname, '../node_modules');
 const pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
 
-var webpack = require('webpack');
+const webpack = require('webpack');
 
 const pkg = require('../package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-    entry: {
-        app: path.resolve(__dirname, '../src/index.js'),
-        vendor: ['angular']
-    },
+    entry: [path.resolve(__dirname, '../src/index.js')],
     resolve: {
         alias: {
             'angular': pathToAngular
@@ -55,7 +52,6 @@ const config = {
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: 0}),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
             inject: true

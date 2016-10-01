@@ -3,65 +3,87 @@ angular-webpack-coockbook-extend
 
 ## Step 11
 
-# Chunks and linting,
+# Karma tests,
 
-install wanted plugins
+install karma
 
 ```sh
-npm install babel-loader babel-core babel-preset-es2015 --save-dev
+npm install karma karma-coverage karma-jasmine karma-phantomjs-launcher karma-sourcemap-loader karma-spec-reporter karma-webpack --save-dev
 
 ```
 
-Webpack config changes - adding loaders for sass or less
+Add karma.conf.js
+
 ```js
-...
-    entry: {
-        app: path.resolve(__dirname, '../src/index.js'),
-        vendor: ['angular']
+
+// Reference: http://karma-runner.github.io/0.12/config/configuration-file.html
+module.exports = function karmaConfig (config) {
+  config.set({
+    frameworks: [
+      // Reference: https://github.com/karma-runner/karma-jasmine
+      // Set framework to jasmine
+      'jasmine'
+    ],
+
+    reporters: [
+      // Reference: https://github.com/mlex/karma-spec-reporter
+      // Set reporter to print detailed results to console
+      'progress',
+
+      // Reference: https://github.com/karma-runner/karma-coverage
+      // Output code coverage files
+      'coverage'
+    ],
+
+    files: [
+      // Grab all files in the app folder that contain .spec.
+      'src/tests.webpack.js'
+    ],
+
+    preprocessors: {
+      // Reference: http://webpack.github.io/docs/testing.html
+      // Reference: https://github.com/webpack/karma-webpack
+      // Convert files with webpack and load sourcemaps
+      'src/tests.webpack.js': ['webpack', 'sourcemap']
     },
-...
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js', minChunks: Infinity})
-    ]
-...
+
+    browsers: [
+      // Run tests using PhantomJS
+      'PhantomJS'
+    ],
+
+    singleRun: true,
+
+    // Configure code coverage reporter
+    coverageReporter: {
+      dir: 'coverage/',
+      reporters: [
+        {type: 'text-summary'},
+        {type: 'html'}
+      ]
+    },
+
+    webpack: require('./webpack.config'),
+
+    // Hide webpack build information from output
+    webpackMiddleware: {
+      noInfo: 'errors-only'
+    }
+  });
+};
+
 
 ```
-
-# linting
-
-```sh
-npm install eslint eslint-loader babel-eslint@6 --save-dev
-```
-
-use eslint as a preloader to be sure its there
+Create tests.webpack.js
 
 ```js
-...
-    preLoaders: [
-        {
-            test: /\.js$/,
-            loader: "eslint-loader",
-            exclude: /node_modules/
-        }
-    ]
-...
-```
+// This file is an entry point for angular tests
+// Avoids some weird issues when using webpack + angular.
 
-add some eslint configs
+import 'angular';
+import 'angular-mocks/angular-mocks';
 
-```sh
-npm install --save-dev eslint-config-angular
-npm install --save-dev eslint-plugin-angular
-```
+const context = require.context('./src', true, /\.js$/);
 
-and .eslintrc file
-```json
-{
-  "parser": "babel-eslint",
-  "rules": {
-    "strict": 0
-  },
-  "plugins": ["angular"],
-  "extends": "angular"
-}
+context.keys().forEach(context);
 ```

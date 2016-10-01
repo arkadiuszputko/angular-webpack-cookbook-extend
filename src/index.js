@@ -9,6 +9,7 @@ const app = {
     template: '<component></component>'
 };
 
-angular.module('app', [])
+export default angular.module('app', [])
     .component('app', app)
-    .component('component', component);
+    .component('component', component)
+    .name;
