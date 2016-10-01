@@ -1,5 +1,7 @@
 'use strict';
 
+require("./index.css");
+
 var angular = require('./angular-wrapper');
 var component = require('./component');
 

@@ -5,7 +5,7 @@ var pathToAngular = path.resolve(nodeModules, 'angular/angular.min.js');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
-    entry: path.resolve(__dirname, '../src/index.js'),
+    entry: ['webpack/hot/dev-server', path.resolve(__dirname, '../src/index.js')],
     resolve: {
         alias: {
             'angular': pathToAngular
@@ -21,6 +21,10 @@ var config = {
             {
                 test: /\.html$/, // Only .html files
                 loader: 'html' // Run html loader
+            },
+            {
+                test: /\.css$/, // Only .css files
+                loader: 'style!css' // Run both loaders
             }
         ]
     },
