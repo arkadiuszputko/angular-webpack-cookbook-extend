@@ -1,22 +1,3 @@
-angular-webpack-coockbook-extend
-============
-
-## Step 13
-
-# Karma tests,
-
-install protractor
-
-```sh
-npm install --save-dev protractor chromedriver --save-dev
-
-```
-
-Add karma.conf.js
-
-
-```js
-
 var chromedriver = require('chromedriver');
 
 if (!chromedriver.path) { throw 'error: chomedriver is not installed'; }
@@ -58,14 +39,3 @@ exports.config = {
 
     seleniumServerJar: './node_modules/selenium-standalone/.selenium/selenium-server/2.53.0-server.jar'
 };
-
-```
-
-Scripts in package json
-
-```json
-
-    "e2e": "node ./node_modules/.bin/protractor",
-    "e2e-watch": "./node_modules/.bin/protractor --elementExplorer"
-
-```
