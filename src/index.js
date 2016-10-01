@@ -1,4 +1,12 @@
 'use strict';
-var component = require('./component.js');
 
-document.body.appendChild(component());
+var angular = require('./angular-wrapper');
+var component = require('./component');
+
+var app = {
+    template: '<component></component>'
+};
+
+angular.module('app', [])
+    .component('app', app)
+    .component('component', component);
