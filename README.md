@@ -11,7 +11,7 @@ npm init
 
 Install webpack
 ```sh
-npm i --save-dave webpack
+npm i --save-dev webpack
 ```
 
 Add the directory structure
