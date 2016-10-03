@@ -1,4 +1,4 @@
-angular-webpack-coockbook-extend
+angular-webpack-cookbook-extend
 ============
 
 ## Step 1
